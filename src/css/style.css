@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Amadeus';
+  src: url('./../fonts/Amadeus.ttf') format('truetype');
+}
+
+body {
+  font-family: Amadeus;
+  font-weight: bold;
+  height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(217deg, #fff6dd, rgba(255, 0, 0, 0) 70.71%),
+    linear-gradient(127deg, #fefee5, rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, #beffcc, rgba(0, 0, 255, 0) 70.71%),
+    linear-gradient(336deg, #c9ffba, rgba(0, 0, 255, 0) 70.71%);
+}
+
+.wrapper {
+  padding: 20px;
+}
+
+.keyboard {
+  padding: 8px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  box-shadow: 0px 1px 12px #a7c3b682;
+}
+
+.key {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: inset 0px 1px 9px #bfcae7;
+  margin: 4px;
+}
+
+.key__button {
+  font-family: Amadeus;
+  background: rgb(139, 245, 211);
+  background: linear-gradient(148deg,
+      rgba(139, 245, 211, 1) 0%,
+      rgba(54, 218, 231, 1) 28%,
+      rgba(56, 170, 255, 1) 53%,
+      rgba(87, 91, 252, 1) 100%);
+  box-shadow: inset 0px 2px 5px white,
+    -2px -2px 10px rgb(208 255 240),
+    2px 2px 10px rgb(130 133 255);
+  width: 32px;
+  height: 32px;
+  align-self: center;
+  margin: 0 auto;
+  border: none;
+  border-radius: 10px;
+  font-size: 22px;
+}
+
+.key__text {
+  color: rgba(255, 255, 255, 0.8);
+}
