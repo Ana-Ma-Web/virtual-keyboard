@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,28 @@
   <title>Magic keyboard</title>
   <link rel="stylesheet" href="./css/style.css" media="screen" charset="utf-8">
 </head>
+
 <body>
   <div class="wrapper">
     <div class="keyboard">
       <div class="key">
-        <button class="key__button">
+        <button class="key__button key__button_active">
+          <div class="key__bg key__bg_primary"></div>
+          <div class="key__bg key__bg_active"></div>
           <span class="key__text">Ö</span>
         </button>
       </div>
       <div class="key">
         <button class="key__button">
+          <div class="key__bg key__bg_primary"></div>
+          <div class="key__bg key__bg_active"></div>
           <span class="key__text">Æ</span>
         </button>
       </div>
       <div class="key">
         <button class="key__button">
+          <div class="key__bg key__bg_secondary"></div>
+          <div class="key__bg key__bg_active"></div>
           <span class="key__text">Þ</span>
         </button>
       </div>
@@ -29,4 +37,5 @@
   </div>
   <script src="index.js"></script>
 </body>
+
 </html>
