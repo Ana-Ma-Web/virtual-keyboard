@@ -97,13 +97,12 @@ body {
 }
 
 .key {
-  width: 45px;
-  height: 45px;
-  display: flex;
   border-radius: 7px;
   overflow: hidden;
   box-shadow: var(--keyboard-inner-shadow);
-  /* margin: 4px; */
+  width: fit-content;
+  height: fit-content;
+  padding: 8px;
 }
 
 .key__button {
@@ -160,7 +159,7 @@ body {
   width: calc(45px - 20px);
   height: calc(45px - 20px);
   opacity: 0.5;
-  background: linear-gradient(151deg,
+  background: linear-gradient(174deg,
       #fff6dd, rgba(255, 0, 0, 0) 70%);
   border-radius: 10px;
 }
