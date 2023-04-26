@@ -61,22 +61,30 @@ body {
   box-shadow: var(--keyboard-out-shadow);
   width: fit-content;
   margin: 0 auto;
+  display: grid;
+  gap: 8px;
 }
 
-.text-area {
-  font-family: Amadeus;
-  font-size: 22px;
-  border: none;
+.textboard {
   border-radius: 7px;
   background-color: #f5f6f9;
   box-shadow: var(--keyboard-inner-shadow);
+  padding: 0 5px 0px 0;
+}
+
+.textboard__text-area {
+  font-family: Amadeus;
+  font-size: 22px;
+  border: none;
   padding: 8px;
   color: #7b8fbd;
   outline: none;
-  position: relative;
+  background-color: transparent;
+  /* position: relative; */
+  overflow: hidden;
 }
 
-.text-area::-webkit-resizer {
+.textboard__text-area::-webkit-resizer {
   border-radius: 50%;
   background: var(--primary-bg-gradient);
   box-shadow: var(--primary-shadow);
@@ -84,6 +92,7 @@ body {
 
 .keyboard {
   display: grid;
+  gap: 8px;
   grid-template-columns: auto;
 }
 
@@ -94,7 +103,7 @@ body {
   border-radius: 7px;
   overflow: hidden;
   box-shadow: var(--keyboard-inner-shadow);
-  margin: 4px;
+  /* margin: 4px; */
 }
 
 .key__button {
