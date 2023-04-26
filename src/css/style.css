@@ -1,31 +1,36 @@
 :root {
   --primary-bg-gradient: linear-gradient(148deg,
       #8df7d5 0%,
-      #36dae7 28%,
-      #38aaff 53%,
-      #575bfc 100%);
+      #36dae7 25%,
+      #38aaff 55%,
+      #6687ff 77%,
+      #a167ff 100%);
   --primary-shadow: inset 0px 2px 5px white,
     -2px -2px 10px #d0fff0,
     2px 2px 10px #8285ff;
 
   --secondary-bg-gradient: linear-gradient(148deg,
-      #7af3f9 0%,
+      #73d2ff 0%,
       #4cacff 33%,
       #5d87ff 45%,
       #966bff 70%,
       #dc4eff 100%);
   --secondary-shadow: inset 0px 2px 5px white,
-    -2px -2px 10px #d3ebff,
-    2px 2px 10px #7d5cca;
+    -2px -2px 10px #beeaff,
+    2px 2px 10px #996fff;
 
   --active-bg-gradient: linear-gradient(148deg,
       #FDEB99 0%,
-      #FEB065 28%,
-      #F85F8D 53%,
-      #F862C4 100%);
+      #FEB065 23%,
+      #F85F8D 50%,
+      #F862C4 70%,
+      #fc63ff 100%);
   --active-shadow: inset 0px 2px 5px white,
-    -2px -2px 10px rgb(252, 255, 208),
-    2px 2px 10px rgb(188, 130, 255);
+    -2px -2px 10px #fcffd0,
+    2px 2px 10px #ff84e5;
+
+  --keyboard-out-shadow: 0px 1px 12px #a7c3b682;
+  --keyboard-inner-shadow: inset 0px 1px 9px #bfcae7;
 }
 
 @font-face {
@@ -39,22 +44,47 @@ body {
   height: 100vh;
   margin: 0;
   background:
-    linear-gradient(217deg, #fff6dd, transparent 70.71%),
-    linear-gradient(127deg, #fefee5, transparent 70.71%),
-    linear-gradient(296deg, #beffcc, transparent 70.71%),
-    linear-gradient(56deg, #a6d899, transparent 70.71%);
+    linear-gradient(217deg, #ddfcff, transparent 70.71%),
+    linear-gradient(127deg, #fefff2, transparent 70.71%),
+    linear-gradient(296deg, #c2beff, transparent 70.71%),
+    linear-gradient(56deg, #99b8d8, transparent 70.71%);
 }
 
 .wrapper {
   padding: 20px;
 }
 
-.keyboard {
+.main {
   padding: 8px;
   background-color: white;
   border-radius: 10px;
-  display: flex;
-  box-shadow: 0px 1px 12px #a7c3b682;
+  box-shadow: var(--keyboard-out-shadow);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.text-area {
+  font-family: Amadeus;
+  font-size: 22px;
+  border: none;
+  border-radius: 7px;
+  background-color: #f5f6f9;
+  box-shadow: var(--keyboard-inner-shadow);
+  padding: 8px;
+  color: #7b8fbd;
+  outline: none;
+  position: relative;
+}
+
+.text-area::-webkit-resizer {
+  border-radius: 50%;
+  background: var(--primary-bg-gradient);
+  box-shadow: var(--primary-shadow);
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: auto;
 }
 
 .key {
@@ -63,7 +93,7 @@ body {
   display: flex;
   border-radius: 7px;
   overflow: hidden;
-  box-shadow: inset 0px 1px 9px #bfcae7;
+  box-shadow: var(--keyboard-inner-shadow);
   margin: 4px;
 }
 
