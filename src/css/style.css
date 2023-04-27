@@ -31,6 +31,8 @@
 
   --keyboard-out-shadow: 0px 1px 12px #a7c3b682;
   --keyboard-inner-shadow: inset 0px 1px 9px #bfcae7;
+
+  --key-width: 45px;
 }
 
 @font-face {
@@ -55,7 +57,7 @@ body {
 }
 
 .main {
-  padding: 8px;
+  padding: 18px;
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--keyboard-out-shadow);
@@ -70,6 +72,8 @@ body {
   background-color: #f5f6f9;
   box-shadow: var(--keyboard-inner-shadow);
   padding: 0 5px 0px 0;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .textboard__text-area {
@@ -80,8 +84,9 @@ body {
   color: #7b8fbd;
   outline: none;
   background-color: transparent;
-  /* position: relative; */
   overflow: hidden;
+  width: inherit;
+  margin: 0 auto;
 }
 
 .textboard__text-area::-webkit-resizer {
@@ -93,7 +98,12 @@ body {
 .keyboard {
   display: grid;
   gap: 8px;
-  grid-template-columns: auto;
+  grid-auto-flow: row;
+  width: 850px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 
 .key {
@@ -105,12 +115,16 @@ body {
   padding: 8px;
 }
 
+.key:hover {
+  --keyboard-inner-shadow: inset 0px 1px 9px #e2b4ff;
+}
+
 .key__button {
   font-family: Amadeus;
   position: relative;
   border: none;
   background-color: transparent;
-  width: calc(45px - 14px);
+  width: calc(var(--key-width) - 14px);
   height: calc(45px - 14px);
   align-self: center;
   padding: 0;
@@ -156,12 +170,12 @@ body {
   top: 3px;
   left: 3px;
   content: '';
-  width: calc(45px - 20px);
+  width: calc(var(--key-width) - 20px);
   height: calc(45px - 20px);
   opacity: 0.5;
   background: linear-gradient(174deg,
       #fff6dd, rgba(255, 0, 0, 0) 70%);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .key__button_active .key__bg_primary,
@@ -178,4 +192,100 @@ body {
 .key__text {
   color: rgba(255, 255, 255, 0.8);
   position: relative;
+}
+
+/* ====== ====== */
+
+.keyboard[data-lang='ice'] .key[data-code='Backquote'] {
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='Backspace'] {
+  --key-width: 125px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='Tab'] {
+  --key-width: 60px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.keyboard[data-lang='ice'] .key[data-code='Backslash'] {
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='Delete'] {
+  --key-width: 60px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='CapsLock'] {
+  --key-width: 130px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.keyboard[data-lang='ice'] .key[data-code='Quote'] {
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='Enter'] {
+  --key-width: 85px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ShiftLeft'] {
+  --key-width: 85px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ArrowUp'] {
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ShiftRight'] {
+  --key-width: 135px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ControlLeft'] {
+  --key-width: 65px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='MetaLeft'] {
+  --key-width: 55px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='AltLeft'] {
+  --key-width: 55px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='AltRight'] {
+  --key-width: 55px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='Space'] {
+  --key-width: 305px;
+}
+
+.key[data-code='ArrowLeft'] {
+  --key-width: 55px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ArrowDown'] {
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ArrowRight'] {
+  --key-width: 55px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.key[data-code='ControlRight'] {
+  --key-width: 69px;
+  --primary-bg-gradient: var(--secondary-bg-gradient)
 }
