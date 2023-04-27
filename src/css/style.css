@@ -36,8 +36,8 @@
 }
 
 @font-face {
-  font-family: 'Amadeus';
-  src: url('./../fonts/Amadeus.ttf') format('truetype');
+  font-family: "Amadeus";
+  src: url("./../fonts/Amadeus.ttf") format("truetype");
 }
 
 body {
@@ -169,7 +169,7 @@ body {
   position: absolute;
   top: 3px;
   left: 3px;
-  content: '';
+  content: "";
   width: calc(var(--key-width) - 20px);
   height: calc(45px - 20px);
   opacity: 0.5;
@@ -196,96 +196,96 @@ body {
 
 /* ====== ====== */
 
-.keyboard[data-lang='ice'] .key[data-code='Backquote'] {
+.keyboard[data-lang="ice"] .key[data-code="Backquote"] {
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='Backspace'] {
+.key[data-code="Backspace"] {
   --key-width: 125px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='Tab'] {
+.key[data-code="Tab"] {
   --key-width: 60px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.keyboard[data-lang='ice'] .key[data-code='Backslash'] {
+.keyboard[data-lang="ice"] .key[data-code="Backslash"] {
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='Delete'] {
+.key[data-code="Delete"] {
   --key-width: 60px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='CapsLock'] {
+.key[data-code="CapsLock"] {
   --key-width: 130px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.keyboard[data-lang='ice'] .key[data-code='Quote'] {
+.keyboard[data-lang="ice"] .key[data-code="Quote"] {
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='Enter'] {
+.key[data-code="Enter"] {
   --key-width: 85px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ShiftLeft'] {
+.key[data-code="ShiftLeft"] {
   --key-width: 85px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ArrowUp'] {
+.key[data-code="ArrowUp"] {
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ShiftRight'] {
+.key[data-code="ShiftRight"] {
   --key-width: 135px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ControlLeft'] {
+.key[data-code="ControlLeft"] {
   --key-width: 65px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='MetaLeft'] {
+.key[data-code="MetaLeft"] {
   --key-width: 55px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='AltLeft'] {
+.key[data-code="AltLeft"] {
   --key-width: 55px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='AltRight'] {
+.key[data-code="AltRight"] {
   --key-width: 55px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='Space'] {
+.key[data-code="Space"] {
   --key-width: 305px;
 }
 
-.key[data-code='ArrowLeft'] {
+.key[data-code="ArrowLeft"] {
   --key-width: 55px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ArrowDown'] {
+.key[data-code="ArrowDown"] {
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ArrowRight'] {
+.key[data-code="ArrowRight"] {
   --key-width: 55px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }
 
-.key[data-code='ControlRight'] {
+.key[data-code="ControlRight"] {
   --key-width: 69px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
 }

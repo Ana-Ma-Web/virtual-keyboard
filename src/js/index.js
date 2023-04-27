@@ -1,6 +1,7 @@
 const data = {
-  isShift: false,
-  isRightAlt: false,
+  // isLeftShift: false,
+  // isRightShift: true,
+  // isRightAlt: false,
   isBackquote: false,
   isShiftBackquote: false,
   isQuote: false,
@@ -681,22 +682,6 @@ const data = {
   ],
 };
 
-const renderWrapper = () => {
-  const wrapper = `<div class="wrapper">
-    <div class="main">
-      <div class="textboard">
-        <textarea 
-        class="textboard__text-area" 
-        name="text" 
-        cols="72" 
-        rows="4">Þat mælti mín móðir: at mér skyldi kaupa</textarea>
-      </div>
-      <div class="keyboard" data-lang="${data.lang}"></div>
-    </div>
-  </div>`;
-  document.body.innerHTML = wrapper;
-};
-
 class Key {
   constructor(obj) {
     this.code = obj.code;
@@ -721,8 +706,9 @@ class Key {
     const key = document.createElement('div');
     key.className = 'key';
     key.setAttribute('data-code', this.code);
+    let buttonClassName = 'key__button';
 
-    if (data.isShift) {
+    if (data.isLeftShift || data.isRightShift) {
       char = this.shiftKey ? this.shiftKey : char;
       if (data.isBackquote) {
         char = this.backquoteShift ? this.backquoteShift : char;
@@ -739,20 +725,46 @@ class Key {
       if (data.isAltBackslash) {
         char = this.altBackslashShift ? this.altBackslashShift : char;
       }
+      if (data.isLeftShift) {
+        if (this.code === 'ShiftLeft') {
+          buttonClassName += ' key__button_active';
+        }
+      }
+      if (data.isRightShift) {
+        if (this.code === 'ShiftRight') {
+          buttonClassName += ' key__button_active';
+        }
+      }
     } else if (data.isRightAlt) {
       char = this.rightAlt ? this.rightAlt : char;
     }
 
-    template += `<button class="key__button">
-    <div class="key__bg key__bg_primary"></div>
-    <div class="key__bg key__bg_active"></div>
-    <span class="key__text">${char}</span>
-  </button>`;
+    template += `<button class="${buttonClassName}">
+        <div class="key__bg key__bg_primary"></div>
+        <div class="key__bg key__bg_active"></div>
+        <span class="key__text">${char}</span>
+        </button>`;
 
     key.innerHTML = template;
     return key;
   }
 }
+
+const renderWrapper = () => {
+  const wrapper = `<div class="wrapper">
+    <div class="main">
+      <div class="textboard">
+        <textarea 
+        class="textboard__text-area" 
+        name="text" 
+        cols="72" 
+        rows="4">Þat mælti mín móðir: at mér skyldi kaupa</textarea>
+      </div>  
+      <div class="keyboard" data-lang="${data.lang}"></div>
+    </div>  
+  </div>`;
+  document.body.innerHTML = wrapper;
+};
 
 const generateKeys = (arr) => {
   const keys = [];
@@ -773,19 +785,33 @@ const renderKeyboard = () => {
   });
 };
 
-const addKeyCkickHandler = () => {
-  // const doc = document.body;
-  // doc.addEventListener('keydown', (e) => {
-  // data.icelandic.push({ [e.code]: e.key });
-  // console.log(data.icelandic);
-  // });
+const highlightKey = (event) => {
+  const pressedKey = document.querySelector(`.key[data-code=${event.code}] .key__button`);
+  pressedKey.classList.add('key__button_active');
+};
+
+const turnOffKey = (event) => {
+  const pressedKey = document.querySelector(`.key[data-code=${event.code}] .key__button`);
+  pressedKey.classList.remove('key__button_active');
+};
+
+const keyCkickHandler = () => {
+  const doc = document.body;
+  doc.addEventListener('keydown', (e) => {
+    e.preventDefault();
+    highlightKey(e);
+  });
+  doc.addEventListener('keyup', (e) => {
+    e.preventDefault();
+    turnOffKey(e);
+  });
 };
 
 const initKeyboard = () => {
   document.body.innerHTML = '';
   renderWrapper();
   renderKeyboard();
-  addKeyCkickHandler();
+  keyCkickHandler();
 };
 
 window.onload = function () {
