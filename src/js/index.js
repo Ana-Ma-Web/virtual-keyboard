@@ -1,6 +1,7 @@
 const data = {
   isCaps: false,
   isShift: false,
+  isRightShift: false,
   isRightAlt: false,
   isBackquote: false,
   isShiftBackquote: false,
@@ -770,7 +771,7 @@ const updateChar = (code, index) => {
   };
 
   const changeLetterToCaps = () => {
-    if (!data.isShift) {
+    if (!data.isShift && !data.isRightShift) {
       newChar = key.capsKey ? key.capsKey : newChar;
       if (data.isBackquote) {
         newChar = key.backquoteShift ? key.backquoteShift : newChar;
@@ -848,7 +849,7 @@ const updateChar = (code, index) => {
   if (data.isCaps) {
     changeLetterToCaps();
   }
-  if (data.isShift) {
+  if (data.isShift || data.isRightShift) {
     changeCharToShift();
   }
   if (data.isRightAlt) {
@@ -927,7 +928,7 @@ const toggleIceMods = (code) => {
   if (data.lang === 'ice') {
     switch (code) {
       case 'Backquote':
-        if (data.isShift) {
+        if (data.isShift || data.isRightShift) {
           data.isShiftBackquote = !data.isShiftBackquote;
           data.isAltBackslash = false;
           data.isAltQuote = false;
@@ -981,25 +982,33 @@ const keyCkickHandler = () => {
 
   doc.addEventListener('keydown', (e) => {
     e.preventDefault();
-
     if (e.code === 'CapsLock') {
       data.isCaps = !data.isCaps;
-    } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-      if (!data.isShift) {
+    }
+    if (e.code === 'ShiftLeft') {
+      if (!data.isShift && !data.isRightShift) {
         data.isShift = true;
       }
+    } else if (e.code === 'ShiftRight') {
+      if (!data.isShift && !data.isRightShift) {
+        data.isRightShift = true;
+      }
+    } else {
+      highlightKey(e);
     }
-    highlightKey(e);
     toggleIceMods(e.code);
     updateKeyboard(e.code);
-    highlightKey(e);
 
     if (e.code === 'CapsLock') {
       if (data.isCaps) {
         highlightKey(e);
       } else turnOffKey(e);
-    } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+    } else if (e.code === 'ShiftLeft') {
       if (data.isShift) {
+        highlightKey(e);
+      }
+    } else if (e.code === 'ShiftRight') {
+      if (data.isRightShift) {
         highlightKey(e);
       }
     }
@@ -1007,13 +1016,15 @@ const keyCkickHandler = () => {
 
   doc.addEventListener('keyup', (e) => {
     e.preventDefault();
-    if (
-      e.code !== 'CapsLock'
-    ) {
+    if (e.code !== 'CapsLock') {
       turnOffKey(e);
-      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      if (e.code === 'ShiftLeft') {
         if (data.isShift) {
           data.isShift = false;
+        }
+      } else if (e.code === 'ShiftRight') {
+        if (data.isRightShift) {
+          data.isRightShift = false;
         }
       } else if (e.code === 'AltRight') {
         if (data.isRightAlt) {
