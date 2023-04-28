@@ -146,7 +146,7 @@ body {
   background: var(--primary-bg-gradient);
   box-shadow: var(--primary-shadow);
   opacity: 1;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .key__bg_secondary {
@@ -154,7 +154,7 @@ body {
   background: var(--secondary-bg-gradient);
   box-shadow: var(--secondary-shadow);
   opacity: 1;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .key__bg_active {
@@ -162,7 +162,7 @@ body {
   background: var(--active-bg-gradient);
   box-shadow: var(--active-shadow);
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .key__bg::after {
@@ -181,11 +181,11 @@ body {
 .key__button_active .key__bg_primary,
 .key__button_active .key__bg_secondary {
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .key__button_active .key__bg_active {
-  transition: 0.3s;
+  transition: 0.2s;
   opacity: 1;
 }
 

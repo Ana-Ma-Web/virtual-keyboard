@@ -1,7 +1,7 @@
 const data = {
-  // isLeftShift: false,
-  // isRightShift: true,
-  // isRightAlt: false,
+  isCaps: false,
+  isShift: false,
+  isRightAlt: false,
   isBackquote: false,
   isShiftBackquote: false,
   isQuote: false,
@@ -72,7 +72,7 @@ const data = {
     {
       code: 'Minus',
       key: 'ö',
-      shiftKey: 'Ö',
+      capsKey: 'Ö',
       rightAlt: '&#92',
     },
     {
@@ -91,18 +91,18 @@ const data = {
     {
       code: 'KeyQ',
       key: 'q',
-      shiftKey: 'Q',
+      capsKey: 'Q',
       rightAlt: '@',
     },
     {
       code: 'KeyW',
       key: 'w',
-      shiftKey: 'W',
+      capsKey: 'W',
     },
     {
       code: 'KeyE',
       key: 'e',
-      shiftKey: 'E',
+      capsKey: 'E',
       rightAlt: '€',
       shiftBackquote: 'ë',
       shiftBackquoteShift: 'Ë',
@@ -116,17 +116,17 @@ const data = {
     {
       code: 'KeyR',
       key: 'r',
-      shiftKey: 'R',
+      capsKey: 'R',
     },
     {
       code: 'KeyT',
       key: 't',
-      shiftKey: 'T',
+      capsKey: 'T',
     },
     {
       code: 'KeyY',
       key: 'y',
-      shiftKey: 'Y',
+      capsKey: 'Y',
       shiftBackquote: 'ÿ',
       shiftBackquoteShift: 'Ÿ',
       quote: 'ý',
@@ -135,7 +135,7 @@ const data = {
     {
       code: 'KeyU',
       key: 'u',
-      shiftKey: 'U',
+      capsKey: 'U',
       shiftBackquote: 'ü',
       shiftBackquoteShift: 'Ü',
       quote: 'ú',
@@ -148,7 +148,7 @@ const data = {
     {
       code: 'KeyI',
       key: 'i',
-      shiftKey: 'I',
+      capsKey: 'I',
       shiftBackquote: 'ï',
       shiftBackquoteShift: 'Ï',
       quote: 'í',
@@ -161,7 +161,7 @@ const data = {
     {
       code: 'KeyO',
       key: 'o',
-      shiftKey: 'O',
+      capsKey: 'O',
       shiftBackquote: 'ö',
       shiftBackquoteShift: 'Ö',
       quote: 'ó',
@@ -174,12 +174,12 @@ const data = {
     {
       code: 'KeyP',
       key: 'p',
-      shiftKey: 'P',
+      capsKey: 'P',
     },
     {
       code: 'BracketLeft',
       key: 'ð',
-      shiftKey: 'Ð',
+      capsKey: 'Ð',
     },
     {
       code: 'BracketRight',
@@ -204,7 +204,7 @@ const data = {
     {
       code: 'KeyA',
       key: 'a',
-      shiftKey: 'A',
+      capsKey: 'A',
       backquote: 'å',
       backquoteShift: 'Å',
       shiftBackquote: 'ä',
@@ -219,51 +219,52 @@ const data = {
     {
       code: 'KeyS',
       key: 's',
-      shiftKey: 'S',
+      capsKey: 'S',
     },
     {
       code: 'KeyD',
       key: 'd',
-      shiftKey: 'D',
+      capsKey: 'D',
     },
     {
       code: 'KeyF',
       key: 'f',
-      shiftKey: 'F',
+      capsKey: 'F',
     },
     {
       code: 'KeyG',
       key: 'g',
-      shiftKey: 'G',
+      capsKey: 'G',
     },
     {
       code: 'KeyH',
       key: 'h',
-      shiftKey: 'H',
+      capsKey: 'H',
     },
     {
       code: 'KeyJ',
       key: 'j',
-      shiftKey: 'J',
+      capsKey: 'J',
     },
     {
       code: 'KeyK',
       key: 'k',
-      shiftKey: 'K',
+      capsKey: 'K',
     },
     {
       code: 'KeyL',
       key: 'l',
-      shiftKey: 'L',
+      capsKey: 'L',
     },
     {
       code: 'Semicolon',
       key: 'æ',
-      shiftKey: 'Æ',
+      capsKey: 'Æ',
     },
     {
       code: 'Quote',
       key: '&#180;',
+      shiftKey: "'",
       rightAlt: '^',
     },
     {
@@ -277,37 +278,37 @@ const data = {
     {
       code: 'KeyZ',
       key: 'z',
-      shiftKey: 'Z',
+      capsKey: 'Z',
     },
     {
       code: 'KeyX',
       key: 'x',
-      shiftKey: 'X',
+      capsKey: 'X',
     },
     {
       code: 'KeyC',
       key: 'c',
-      shiftKey: 'C',
+      capsKey: 'C',
     },
     {
       code: 'KeyV',
       key: 'v',
-      shiftKey: 'V',
+      capsKey: 'V',
     },
     {
       code: 'KeyB',
       key: 'b',
-      shiftKey: 'B',
+      capsKey: 'B',
     },
     {
       code: 'KeyN',
       key: 'n',
-      shiftKey: 'N',
+      capsKey: 'N',
     },
     {
       code: 'KeyM',
       key: 'm',
-      shiftKey: 'M',
+      capsKey: 'M',
       rightAlt: 'µ',
     },
     {
@@ -322,8 +323,8 @@ const data = {
     },
     {
       code: 'Slash',
-      key: 'Þ',
-      shiftKey: 'Þ',
+      key: 'þ',
+      capsKey: 'Þ',
     },
     {
       code: 'ArrowUp',
@@ -452,52 +453,52 @@ const data = {
     {
       code: 'KeyQ',
       key: 'q',
-      shiftKey: 'Q',
+      capsKey: 'Q',
     },
     {
       code: 'KeyW',
       key: 'w',
-      shiftKey: 'W',
+      capsKey: 'W',
     },
     {
       code: 'KeyE',
       key: 'e',
-      shiftKey: 'E',
+      capsKey: 'E',
     },
     {
       code: 'KeyR',
       key: 'r',
-      shiftKey: 'R',
+      capsKey: 'R',
     },
     {
       code: 'KeyT',
       key: 't',
-      shiftKey: 'T',
+      capsKey: 'T',
     },
     {
       code: 'KeyY',
       key: 'y',
-      shiftKey: 'Y',
+      capsKey: 'Y',
     },
     {
       code: 'KeyU',
       key: 'u',
-      shiftKey: 'U',
+      capsKey: 'U',
     },
     {
       code: 'KeyI',
       key: 'i',
-      shiftKey: 'I',
+      capsKey: 'I',
     },
     {
       code: 'KeyO',
       key: 'o',
-      shiftKey: 'O',
+      capsKey: 'O',
     },
     {
       code: 'KeyP',
       key: 'p',
-      shiftKey: 'P',
+      capsKey: 'P',
     },
     {
       code: 'BracketLeft',
@@ -525,47 +526,47 @@ const data = {
     {
       code: 'KeyA',
       key: 'a',
-      shiftKey: 'A',
+      capsKey: 'A',
     },
     {
       code: 'KeyS',
       key: 's',
-      shiftKey: 'S',
+      capsKey: 'S',
     },
     {
       code: 'KeyD',
       key: 'd',
-      shiftKey: 'D',
+      capsKey: 'D',
     },
     {
       code: 'KeyF',
       key: 'f',
-      shiftKey: 'F',
+      capsKey: 'F',
     },
     {
       code: 'KeyG',
       key: 'g',
-      shiftKey: 'G',
+      capsKey: 'G',
     },
     {
       code: 'KeyH',
       key: 'h',
-      shiftKey: 'H',
+      capsKey: 'H',
     },
     {
       code: 'KeyJ',
       key: 'j',
-      shiftKey: 'J',
+      capsKey: 'J',
     },
     {
       code: 'KeyK',
       key: 'k',
-      shiftKey: 'K',
+      capsKey: 'K',
     },
     {
       code: 'KeyL',
       key: 'l',
-      shiftKey: 'L',
+      capsKey: 'L',
     },
     {
       code: 'Semicolon',
@@ -588,37 +589,37 @@ const data = {
     {
       code: 'KeyZ',
       key: 'z',
-      shiftKey: 'Z¨',
+      capsKey: 'Z¨',
     },
     {
       code: 'KeyX',
       key: 'x',
-      shiftKey: 'X',
+      capsKey: 'X',
     },
     {
       code: 'KeyC',
       key: 'c',
-      shiftKey: 'C',
+      capsKey: 'C',
     },
     {
       code: 'KeyV',
       key: 'v',
-      shiftKey: 'V',
+      capsKey: 'V',
     },
     {
       code: 'KeyB',
       key: 'b',
-      shiftKey: 'B',
+      capsKey: 'B',
     },
     {
       code: 'KeyN',
       key: 'n',
-      shiftKey: 'N',
+      capsKey: 'N',
     },
     {
       code: 'KeyM',
       key: 'm',
-      shiftKey: 'M',
+      capsKey: 'M',
     },
     {
       code: 'Comma',
@@ -686,6 +687,7 @@ class Key {
   constructor(obj) {
     this.code = obj.code;
     this.key = obj.key;
+    this.capsKey = obj.capsKey;
     this.shiftKey = obj.shiftKey;
     this.rightAlt = obj.rightAlt;
     this.backquote = obj.backquote;
@@ -702,47 +704,15 @@ class Key {
 
   generateKey() {
     let template = '';
-    let char = this.key;
     const key = document.createElement('div');
     key.className = 'key';
+
     key.setAttribute('data-code', this.code);
-    let buttonClassName = 'key__button';
 
-    if (data.isLeftShift || data.isRightShift) {
-      char = this.shiftKey ? this.shiftKey : char;
-      if (data.isBackquote) {
-        char = this.backquoteShift ? this.backquoteShift : char;
-      }
-      if (data.isShiftBackquote) {
-        char = this.shiftBackquoteShift ? this.shiftBackquoteShift : char;
-      }
-      if (data.isQuote) {
-        char = this.quoteShift ? this.quoteShift : char;
-      }
-      if (data.isAltQuote) {
-        char = this.altQuoteShift ? this.altQuoteShift : char;
-      }
-      if (data.isAltBackslash) {
-        char = this.altBackslashShift ? this.altBackslashShift : char;
-      }
-      if (data.isLeftShift) {
-        if (this.code === 'ShiftLeft') {
-          buttonClassName += ' key__button_active';
-        }
-      }
-      if (data.isRightShift) {
-        if (this.code === 'ShiftRight') {
-          buttonClassName += ' key__button_active';
-        }
-      }
-    } else if (data.isRightAlt) {
-      char = this.rightAlt ? this.rightAlt : char;
-    }
-
-    template += `<button class="${buttonClassName}">
+    template += `<button class="key__button">
         <div class="key__bg key__bg_primary"></div>
         <div class="key__bg key__bg_active"></div>
-        <span class="key__text">${char}</span>
+        <span class="key__text"></span>
         </button>`;
 
     key.innerHTML = template;
@@ -766,6 +736,152 @@ const renderWrapper = () => {
   document.body.innerHTML = wrapper;
 };
 
+const updateChar = (code, index) => {
+  const langList = (data.lang === 'ice') ? data.icelandic : data.english;
+  const key = langList[index];
+  let newChar = key.key;
+
+  const defaultCharChange = () => {
+    if (data.isBackquote) {
+      newChar = key.backquote ? key.backquote : newChar;
+    }
+    if (data.isShiftBackquote) {
+      newChar = key.shiftBackquote ? key.shiftBackquote : newChar;
+      if (key.code === 'Backquote') {
+        newChar = key.shiftKey;
+      }
+    }
+    if (data.isQuote) {
+      newChar = key.quote ? key.quote : newChar;
+    }
+    if (data.isAltQuote) {
+      newChar = key.altQuote ? key.altQuote : newChar;
+      if (key.code === 'Quote') {
+        newChar = key.rightAlt;
+      }
+    }
+    if (data.isAltBackslash) {
+      newChar = key.altBackslash ? key.altBackslash : newChar;
+      if (key.code === 'Backslash') {
+        newChar = key.rightAlt;
+      }
+    }
+  };
+
+  const changeLetterToCaps = () => {
+    newChar = key.capsKey ? key.capsKey : newChar;
+    if (data.isBackquote) {
+      newChar = key.backquoteShift ? key.backquoteShift : newChar;
+    }
+    if (data.isShiftBackquote) {
+      newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
+    }
+    if (data.isQuote) {
+      newChar = key.quoteShift ? key.quoteShift : newChar;
+    }
+    if (data.isAltQuote) {
+      newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
+    }
+    if (data.isAltBackslash) {
+      newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
+    }
+  };
+
+  const changeCharToShift = () => {
+    newChar = key.shiftKey ? key.shiftKey : newChar;
+    newChar = key.capsKey ? key.capsKey : newChar;
+    if (data.isBackquote) {
+      if (key.code === 'Backquote') {
+        newChar = key.key;
+      } else {
+        newChar = key.backquoteShift ? key.backquoteShift : newChar;
+      }
+    }
+    if (data.isShiftBackquote) {
+      newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
+      if (key.code === 'Backquote') {
+        newChar = key.shiftKey;
+      }
+    }
+    if (data.isQuote) {
+      if (key.code === 'Quote') {
+        newChar = key.key;
+      } else {
+        newChar = key.quoteShift ? key.quoteShift : newChar;
+      }
+    }
+    if (data.isAltQuote) {
+      if (key.code === 'Quote') {
+        newChar = key.rightAlt;
+      } else {
+        newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
+      }
+    }
+    if (data.isAltBackslash) {
+      if (key.code === 'Backslash') {
+        newChar = key.rightAlt;
+      } else {
+        newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
+      }
+    }
+  };
+
+  const changeCharToRightAlt = () => {
+    newChar = key.rightAlt ? key.rightAlt : newChar;
+  };
+
+  defaultCharChange();
+
+  if (data.isCaps) {
+    changeLetterToCaps();
+  }
+  if (data.isShift) {
+    changeCharToShift();
+  }
+  if (data.isRightAlt) {
+    changeCharToRightAlt();
+  }
+
+  return newChar;
+};
+
+const highlightUpdate = (node) => {
+  const parent = node.closest('.key');
+  const { code } = parent.dataset;
+  if (code === 'Backquote') {
+    if (data.isBackquote || data.isShiftBackquote) {
+      parent.classList.add('key__button_active');
+    } else {
+      parent.classList.remove('key__button_active');
+    }
+  }
+  if (code === 'Quote') {
+    if (data.isQuote || data.isAltQuote) {
+      parent.classList.add('key__button_active');
+    } else {
+      parent.classList.remove('key__button_active');
+    }
+  }
+  if (code === 'Backslash') {
+    if (data.isAltBackslash) {
+      parent.classList.add('key__button_active');
+    } else {
+      parent.classList.remove('key__button_active');
+    }
+  }
+};
+
+const updateKeyboard = (code) => {
+  const keys = document.querySelectorAll('.key__text');
+
+  for (let i = 0; i < keys.length; i += 1) {
+    const currentChar = keys[i].innerText;
+    const newChar = updateChar(code, i);
+    if (newChar !== currentChar) keys[i].innerHTML = newChar;
+    highlightUpdate(keys[i]);
+  }
+};
+
 const generateKeys = (arr) => {
   const keys = [];
   arr.forEach((e) => {
@@ -783,6 +899,7 @@ const renderKeyboard = () => {
       keyboard.append(e.generateKey());
     }
   });
+  updateKeyboard();
 };
 
 const highlightKey = (event) => {
@@ -795,15 +912,99 @@ const turnOffKey = (event) => {
   pressedKey.classList.remove('key__button_active');
 };
 
+const toggleIceMods = (code) => {
+  if (data.lang === 'ice') {
+    switch (code) {
+      case 'Backquote':
+        if (data.isShift) {
+          data.isShiftBackquote = !data.isShiftBackquote;
+          data.isAltBackslash = false;
+          data.isAltQuote = false;
+          data.isQuote = false;
+          data.isBackquote = false;
+        } else {
+          data.isBackquote = !data.isBackquote;
+          data.isShiftBackquote = false;
+          data.isAltBackslash = false;
+          data.isAltQuote = false;
+          data.isQuote = false;
+        }
+        break;
+      case 'Quote':
+        if (data.isRightAlt) {
+          data.isAltQuote = !data.isAltQuote;
+          data.isShiftBackquote = false;
+          data.isAltBackslash = false;
+          data.isQuote = false;
+          data.isBackquote = false;
+        } else {
+          data.isQuote = !data.isQuote;
+          data.isShiftBackquote = false;
+          data.isAltBackslash = false;
+          data.isAltQuote = false;
+          data.isBackquote = false;
+        }
+        break;
+      case 'Backslash':
+        if (data.isRightAlt) {
+          data.isAltBackslash = !data.isAltBackslash;
+          data.isShiftBackquote = false;
+          data.isAltQuote = false;
+          data.isQuote = false;
+          data.isBackquote = false;
+        }
+        break;
+      case 'AltRight':
+        if (!data.isRightAlt) {
+          data.isRightAlt = true;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+};
+
 const keyCkickHandler = () => {
   const doc = document.body;
+
   doc.addEventListener('keydown', (e) => {
     e.preventDefault();
     highlightKey(e);
+    toggleIceMods(e.code);
+    updateKeyboard(e.code);
+    highlightKey(e);
+
+    if (e.code === 'CapsLock') {
+      data.isCaps = !data.isCaps;
+      if (data.isCaps) {
+        highlightKey(e);
+      } else turnOffKey(e);
+    } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      if (!data.isShift) {
+        data.isShift = true;
+        highlightKey(e);
+      }
+    }
   });
+
   doc.addEventListener('keyup', (e) => {
     e.preventDefault();
-    turnOffKey(e);
+    if (
+      e.code !== 'CapsLock'
+    ) {
+      turnOffKey(e);
+      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        if (data.isShift) {
+          data.isShift = false;
+        }
+      } else if (e.code === 'AltRight') {
+        if (data.isRightAlt) {
+          data.isRightAlt = false;
+        }
+      }
+    }
+    updateKeyboard(e.code);
   });
 };
 
