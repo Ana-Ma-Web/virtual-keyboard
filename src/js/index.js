@@ -8,6 +8,7 @@ const data = {
   isAltQuote: false,
   isAltBackslash: false,
   lang: 'ice',
+  textareaValue: '',
   icelandic: [
     {
       code: 'Backquote',
@@ -769,65 +770,77 @@ const updateChar = (code, index) => {
   };
 
   const changeLetterToCaps = () => {
-    newChar = key.capsKey ? key.capsKey : newChar;
-    if (data.isBackquote) {
-      newChar = key.backquoteShift ? key.backquoteShift : newChar;
-    }
-    if (data.isShiftBackquote) {
-      newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
-    }
-    if (data.isQuote) {
-      newChar = key.quoteShift ? key.quoteShift : newChar;
-    }
-    if (data.isAltQuote) {
-      newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
-    }
-    if (data.isAltBackslash) {
-      newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
-    }
-  };
-
-  const changeCharToShift = () => {
-    newChar = key.shiftKey ? key.shiftKey : newChar;
-    newChar = key.capsKey ? key.capsKey : newChar;
-    if (data.isBackquote) {
-      if (key.code === 'Backquote') {
-        newChar = key.key;
-      } else {
+    if (!data.isShift) {
+      newChar = key.capsKey ? key.capsKey : newChar;
+      if (data.isBackquote) {
         newChar = key.backquoteShift ? key.backquoteShift : newChar;
       }
-    }
-    if (data.isShiftBackquote) {
-      newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
-      if (key.code === 'Backquote') {
-        newChar = key.shiftKey;
+      if (data.isShiftBackquote) {
+        newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
       }
-    }
-    if (data.isQuote) {
-      if (key.code === 'Quote') {
-        newChar = key.key;
-      } else {
+      if (data.isQuote) {
         newChar = key.quoteShift ? key.quoteShift : newChar;
       }
-    }
-    if (data.isAltQuote) {
-      if (key.code === 'Quote') {
-        newChar = key.rightAlt;
-      } else {
+      if (data.isAltQuote) {
         newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
       }
-    }
-    if (data.isAltBackslash) {
-      if (key.code === 'Backslash') {
-        newChar = key.rightAlt;
-      } else {
+      if (data.isAltBackslash) {
         newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
       }
     }
   };
 
+  const changeCharToShift = () => {
+    if (!data.isCaps) {
+      newChar = key.shiftKey ? key.shiftKey : newChar;
+      newChar = key.capsKey ? key.capsKey : newChar;
+      if (data.isBackquote) {
+        if (key.code === 'Backquote') {
+          newChar = key.key;
+        } else {
+          newChar = key.backquoteShift ? key.backquoteShift : newChar;
+        }
+      }
+      if (data.isShiftBackquote) {
+        newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
+        if (key.code === 'Backquote') {
+          newChar = key.shiftKey;
+        }
+      }
+      if (data.isQuote) {
+        if (key.code === 'Quote') {
+          newChar = key.key;
+        } else {
+          newChar = key.quoteShift ? key.quoteShift : newChar;
+        }
+      }
+      if (data.isAltQuote) {
+        if (key.code === 'Quote') {
+          newChar = key.rightAlt;
+        } else {
+          newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
+        }
+      }
+      if (data.isAltBackslash) {
+        if (key.code === 'Backslash') {
+          newChar = key.rightAlt;
+        } else {
+          newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
+        }
+      }
+    }
+  };
+
   const changeCharToRightAlt = () => {
-    newChar = key.rightAlt ? key.rightAlt : newChar;
+    if (data.isQuote) {
+      if (key.code === 'Quote') {
+        newChar = key.key;
+      } else {
+        newChar = key.rightAlt ? key.rightAlt : newChar;
+      }
+    } else {
+      newChar = key.rightAlt ? key.rightAlt : newChar;
+    }
   };
 
   defaultCharChange();
@@ -873,7 +886,6 @@ const highlightUpdate = (node) => {
 
 const updateKeyboard = (code) => {
   const keys = document.querySelectorAll('.key__text');
-
   for (let i = 0; i < keys.length; i += 1) {
     const currentChar = keys[i].innerText;
     const newChar = updateChar(code, i);
@@ -899,7 +911,6 @@ const renderKeyboard = () => {
       keyboard.append(e.generateKey());
     }
   });
-  updateKeyboard();
 };
 
 const highlightKey = (event) => {
@@ -970,19 +981,25 @@ const keyCkickHandler = () => {
 
   doc.addEventListener('keydown', (e) => {
     e.preventDefault();
+
+    if (e.code === 'CapsLock') {
+      data.isCaps = !data.isCaps;
+    } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      if (!data.isShift) {
+        data.isShift = true;
+      }
+    }
     highlightKey(e);
     toggleIceMods(e.code);
     updateKeyboard(e.code);
     highlightKey(e);
 
     if (e.code === 'CapsLock') {
-      data.isCaps = !data.isCaps;
       if (data.isCaps) {
         highlightKey(e);
       } else turnOffKey(e);
     } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-      if (!data.isShift) {
-        data.isShift = true;
+      if (data.isShift) {
         highlightKey(e);
       }
     }
@@ -1012,6 +1029,7 @@ const initKeyboard = () => {
   document.body.innerHTML = '';
   renderWrapper();
   renderKeyboard();
+  updateKeyboard();
   keyCkickHandler();
 };
 
