@@ -130,6 +130,7 @@ body {
   padding: 0;
   margin: 0 auto;
   font-size: 22px;
+  cursor: pointer;
 }
 
 .key__bg {
@@ -184,8 +185,8 @@ body {
   transition: 0.2s;
 }
 
-.key__button_active .key__bg_primary,
-.key__button_active .key__bg_secondary {
+.key_active .key__bg_primary,
+.key_active .key__bg_secondary {
   opacity: 0;
   transition: 0.2s;
 }
@@ -194,7 +195,7 @@ body {
   transition: 0.2s;
   opacity: 1;
 }
-.key__button_active .key__bg_active {
+.key_active .key__bg_active {
   transition: 0.2s;
   opacity: 1;
 }
