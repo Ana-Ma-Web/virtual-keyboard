@@ -10,6 +10,7 @@ const data = {
   isAltBackslash: false,
   lang: 'ice',
   textareaValue: '',
+  currentSelection: 0,
   icelandic: [
     {
       code: 'Backquote',
@@ -736,7 +737,7 @@ const renderWrapper = () => {
 const updateChar = (code, index) => {
   const langList = (data.lang === 'ice') ? data.icelandic : data.english;
   const key = langList[index];
-  let newChar = key.key;
+  let newChar = key?.key;
 
   const defaultCharChange = () => {
     if (data.isBackquote) {
@@ -1065,23 +1066,26 @@ const textareaInput = (char, place) => {
 
 const deleteCharInTextarea = (isBack) => {
   const textarea = document.querySelector('.textboard__text-area');
-  const currentSelectionStart = textarea.selectionStart;
+  const currentSelectionStart = data.currentSelection;
+
   const textArr = data.textareaValue.split('');
 
   const count = isBack ? 1 : 0;
 
   textArr.splice(textarea.selectionStart - count, 1);
-
   data.textareaValue = textArr.join('');
   textareaUpdate();
 
-  textarea.selectionStart = currentSelectionStart - count;
-  textarea.selectionEnd = currentSelectionStart - count;
+  data.currentSelection = currentSelectionStart - count;
+
+  data.currentSelection = currentSelectionStart - count;
+  textarea.selectionStart = data.currentSelection;
+  textarea.selectionEnd = data.currentSelection;
 };
 
 const textareaInputHandler = (code) => {
   const textarea = document.querySelector('.textboard__text-area');
-  const currentSelectionStart = textarea.selectionStart;
+  const currentSelectionStart = data.currentSelection;
 
   if (
     code !== 'Tab'
@@ -1114,12 +1118,14 @@ const textareaInputHandler = (code) => {
       keyArr.forEach((el, i) => {
         if (el.code === code) index = i;
       });
+
       const char = updateChar(code, index);
 
-      textareaInput(char, textarea.selectionStart);
+      textareaInput(char, data.currentSelection);
       textareaUpdate();
-      textarea.selectionStart = currentSelectionStart + 1;
-      textarea.selectionEnd = currentSelectionStart + 1;
+      data.currentSelection = currentSelectionStart + 1;
+      textarea.selectionStart = data.currentSelection;
+      textarea.selectionEnd = data.currentSelection;
     }
   }
 };
@@ -1146,6 +1152,21 @@ const keyCkickHandler = () => {
   });
 };
 
+const mouseClickHandler = () => {
+  const textarea = document.querySelector('.textboard__text-area');
+  document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.key')?.dataset.code) {
+      const { code } = e.target.closest('.key').dataset;
+
+      textareaInputHandler(code);
+    } else {
+      data.currentSelection = textarea.selectionStart;
+    }
+    textarea.focus();
+  });
+  textarea.focus();
+};
+
 const initKeyboard = () => {
   document.body.innerHTML = '';
   renderWrapper();
@@ -1154,6 +1175,7 @@ const initKeyboard = () => {
   textareaReset();
   textareaUpdate();
   keyCkickHandler();
+  mouseClickHandler();
 };
 
 window.onload = function () {
