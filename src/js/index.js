@@ -374,11 +374,6 @@ const data = {
     },
   ],
   english: [
-    { isBackquote: false },
-    { isShiftBackquote: false },
-    { isQuote: false },
-    { isAltQuote: false },
-    { isAltBackslash: false },
     {
       code: 'Backquote',
       key: '`',
@@ -573,7 +568,7 @@ const data = {
     {
       code: 'Semicolon',
       key: ';',
-      shiftKey: ':¨',
+      shiftKey: ':',
     },
     {
       code: 'Quote',
@@ -591,7 +586,7 @@ const data = {
     {
       code: 'KeyZ',
       key: 'z',
-      capsKey: 'Z¨',
+      capsKey: 'Z',
     },
     {
       code: 'KeyX',
@@ -977,6 +972,21 @@ const toggleIceMods = (code) => {
   }
 };
 
+const toggleLanguage = () => {
+  if (data.lang === 'ice') {
+    data.lang = 'en';
+    document.querySelector('.keyboard').dataset.lang = 'en';
+  } else if (data.lang === 'en') {
+    data.lang = 'ice';
+    document.querySelector('.keyboard').dataset.lang = 'ice';
+  }
+  data.isShiftBackquote = false;
+  data.isAltBackslash = false;
+  data.isAltQuote = false;
+  data.isQuote = false;
+  data.isBackquote = false;
+};
+
 const keyCkickHandler = () => {
   const doc = document.body;
 
@@ -985,7 +995,16 @@ const keyCkickHandler = () => {
     if (e.code === 'CapsLock') {
       data.isCaps = !data.isCaps;
     }
+    if (e.code === 'ControlLeft') {
+      if (e.getModifierState('Shift')) {
+        console.log('toggle');
+        toggleLanguage();
+      }
+    }
     if (e.code === 'ShiftLeft') {
+      if (e.getModifierState('Control')) {
+        toggleLanguage();
+      }
       if (!data.isShift && !data.isRightShift) {
         data.isShift = true;
       }
