@@ -997,7 +997,6 @@ const keyCkickHandler = () => {
     }
     if (e.code === 'ControlLeft') {
       if (e.getModifierState('Shift')) {
-        console.log('toggle');
         toggleLanguage();
       }
     }

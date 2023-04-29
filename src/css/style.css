@@ -178,12 +178,22 @@ body {
   border-radius: 8px;
 }
 
+.key__button:active .key__bg_primary,
+.key__button:active .key__bg_secondary {
+  opacity: 0;
+  transition: 0.2s;
+}
+
 .key__button_active .key__bg_primary,
 .key__button_active .key__bg_secondary {
   opacity: 0;
   transition: 0.2s;
 }
 
+.key__button:active .key__bg_active {
+  transition: 0.2s;
+  opacity: 1;
+}
 .key__button_active .key__bg_active {
   transition: 0.2s;
   opacity: 1;
