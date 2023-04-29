@@ -1043,6 +1043,87 @@ const turnOffKey = (e) => {
   }
 };
 
+const textareaReset = () => {
+  const textarea = document.querySelector('.textboard__text-area');
+  textarea.autofocus = true;
+  textarea.value = '';
+};
+const textareaUpdate = () => {
+  const textarea = document.querySelector('.textboard__text-area');
+  textarea.value = data.textareaValue;
+};
+
+const textareaInput = (char, place) => {
+  const node = document.createElement('div');
+  node.innerHTML = char;
+
+  const textArr = data.textareaValue.split('');
+  textArr.splice(place, 0, node.innerText);
+
+  data.textareaValue = textArr.join('');
+};
+
+const deleteCharInTextarea = (isBack) => {
+  const textarea = document.querySelector('.textboard__text-area');
+  const currentSelectionStart = textarea.selectionStart;
+  const textArr = data.textareaValue.split('');
+
+  const count = isBack ? 1 : 0;
+
+  textArr.splice(textarea.selectionStart - count, 1);
+
+  data.textareaValue = textArr.join('');
+  textareaUpdate();
+
+  textarea.selectionStart = currentSelectionStart - count;
+  textarea.selectionEnd = currentSelectionStart - count;
+};
+
+const textareaInputHandler = (code) => {
+  const textarea = document.querySelector('.textboard__text-area');
+  const currentSelectionStart = textarea.selectionStart;
+
+  if (
+    code !== 'Tab'
+    && code !== 'CapsLock'
+    && code !== 'ShiftLeft'
+    && code !== 'ShiftRight'
+    && code !== 'ControlLeft'
+    && code !== 'MetaLeft'
+    && code !== 'AltLeft'
+    && code !== 'AltRight'
+    && code !== 'ControlRight') {
+    if (
+      code === 'Backquote'
+      && code === 'Backslash'
+      && code === 'Quote'
+    ) {
+
+    } else if (code === 'Enter') {
+      textareaInput('\n', textarea.selectionStart);
+      textareaUpdate();
+      textarea.selectionStart = currentSelectionStart + 1;
+      textarea.selectionEnd = currentSelectionStart + 1;
+    } else if (code === 'Delete') {
+      deleteCharInTextarea(false);
+    } else if (code === 'Backspace') {
+      deleteCharInTextarea(true);
+    } else {
+      const keyArr = data.lang === 'ice' ? data.icelandic : data.english;
+      let index = -1;
+      keyArr.forEach((el, i) => {
+        if (el.code === code) index = i;
+      });
+      const char = updateChar(code, index);
+
+      textareaInput(char, textarea.selectionStart);
+      textareaUpdate();
+      textarea.selectionStart = currentSelectionStart + 1;
+      textarea.selectionEnd = currentSelectionStart + 1;
+    }
+  }
+};
+
 const keyCkickHandler = () => {
   const doc = document.body;
 
@@ -1053,6 +1134,8 @@ const keyCkickHandler = () => {
     toggleIceMods(e.code);
     highlightKey(e);
     updateKeyboard(e.code);
+    textareaInputHandler(e.code);
+    textareaUpdate();
   });
 
   doc.addEventListener('keyup', (e) => {
@@ -1068,6 +1151,8 @@ const initKeyboard = () => {
   renderWrapper();
   renderKeyboard();
   updateKeyboard();
+  textareaReset();
+  textareaUpdate();
   keyCkickHandler();
 };
 
