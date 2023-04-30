@@ -924,6 +924,14 @@ const highlightKey = (event) => {
   pressedKey?.classList.add('key_active');
 };
 
+const resetIceMods = () => {
+  data.isShiftBackquote = false;
+  data.isAltBackslash = false;
+  data.isAltQuote = false;
+  data.isQuote = false;
+  data.isBackquote = false;
+};
+
 const toggleIceMods = (code) => {
   if (data.lang === 'ice') {
     switch (code) {
@@ -966,11 +974,6 @@ const toggleIceMods = (code) => {
           data.isBackquote = false;
         }
         break;
-      case 'AltRight':
-        if (!data.isRightAlt) {
-          data.isRightAlt = true;
-        }
-        break;
       default:
         break;
     }
@@ -999,6 +1002,22 @@ const toggleCaps = (e) => {
   if (e.code === 'ControlLeft') {
     if (e.getModifierState('Shift')) {
       toggleLanguage();
+    }
+  }
+};
+
+const rightAltOn = (code) => {
+  if (code === 'AltRight') {
+    if (!data.isRightAlt) {
+      data.isRightAlt = true;
+    }
+  }
+};
+
+const rightAltOff = (code) => {
+  if (code === 'AltRight') {
+    if (data.isRightAlt) {
+      data.isRightAlt = false;
     }
   }
 };
@@ -1056,31 +1075,60 @@ const textareaUpdate = () => {
 
 const textareaInput = (char, place) => {
   const node = document.createElement('div');
-  node.innerHTML = char;
-
   const textArr = data.textareaValue.split('');
-  textArr.splice(place, 0, node.innerText);
 
+  if (char === 'Tab') {
+    node.innerHTML = '&#9;';
+  } else {
+    node.innerHTML = char;
+  }
+  textArr.splice(place, 0, node.innerText);
   data.textareaValue = textArr.join('');
 };
 
 const deleteCharInTextarea = (isBack) => {
   const textarea = document.querySelector('.textboard__text-area');
   const currentSelectionStart = data.currentSelection;
-
   const textArr = data.textareaValue.split('');
 
-  const count = isBack ? 1 : 0;
+  if (isBack && textarea.selectionStart > 0) {
+    textArr.splice(textarea.selectionStart - 1, 1);
+    data.textareaValue = textArr.join('');
+    textareaUpdate();
 
-  textArr.splice(textarea.selectionStart - count, 1);
-  data.textareaValue = textArr.join('');
-  textareaUpdate();
+    data.currentSelection = currentSelectionStart - 1;
+    textarea.selectionStart = data.currentSelection;
+    textarea.selectionEnd = data.currentSelection;
+  } else if (!isBack) {
+    textArr.splice(textarea.selectionStart, 1);
+    data.textareaValue = textArr.join('');
+    textareaUpdate();
 
-  data.currentSelection = currentSelectionStart - count;
+    data.currentSelection = currentSelectionStart;
+    textarea.selectionStart = data.currentSelection;
+    textarea.selectionEnd = data.currentSelection;
+  }
+};
 
-  data.currentSelection = currentSelectionStart - count;
-  textarea.selectionStart = data.currentSelection;
-  textarea.selectionEnd = data.currentSelection;
+const printCharToTextarea = (code) => {
+  const textarea = document.querySelector('.textboard__text-area');
+  const currentSelectionStart = data.currentSelection;
+
+  const keyArr = data.lang === 'ice' ? data.icelandic : data.english;
+  let index = -1;
+  keyArr.forEach((el, i) => {
+    if (el.code === code) index = i;
+  });
+
+  if (index !== -1) {
+    const char = updateChar(code, index);
+
+    textareaInput(char, data.currentSelection);
+    textareaUpdate();
+    data.currentSelection = currentSelectionStart + 1;
+    textarea.selectionStart = data.currentSelection;
+    textarea.selectionEnd = data.currentSelection;
+  }
 };
 
 const textareaInputHandler = (code) => {
@@ -1088,8 +1136,7 @@ const textareaInputHandler = (code) => {
   const currentSelectionStart = data.currentSelection;
 
   if (
-    code !== 'Tab'
-    && code !== 'CapsLock'
+    code !== 'CapsLock'
     && code !== 'ShiftLeft'
     && code !== 'ShiftRight'
     && code !== 'ControlLeft'
@@ -1097,56 +1144,194 @@ const textareaInputHandler = (code) => {
     && code !== 'AltLeft'
     && code !== 'AltRight'
     && code !== 'ControlRight') {
-    if (
-      code === 'Backquote'
-      && code === 'Backslash'
-      && code === 'Quote'
-    ) {
-
+    if (code === 'Backquote') {
+      if (data.lang === 'ice') {
+        if (data.isAltBackslash) {
+          if (data.isRightAlt) {
+            printCharToTextarea('Backslash');
+            printCharToTextarea(code);
+          } else {
+            rightAltOn('AltRight');
+            printCharToTextarea('Backslash');
+            rightAltOff('AltRight');
+            printCharToTextarea(code);
+          }
+          resetIceMods();
+        } else if (data.isAltQuote) {
+          printCharToTextarea('Quote');
+          printCharToTextarea(code);
+          resetIceMods();
+        } else if (data.isQuote) {
+          printCharToTextarea('Quote');
+          printCharToTextarea(code);
+          resetIceMods();
+        } else if (data.isBackquote) {
+          printCharToTextarea(code);
+          toggleIceMods(code);
+          printCharToTextarea(code);
+          resetIceMods();
+        } else if (data.isShiftBackquote) {
+          printCharToTextarea(code);
+          toggleIceMods(code);
+          printCharToTextarea(code);
+          resetIceMods();
+        } else {
+          toggleIceMods(code);
+        }
+      } else {
+        printCharToTextarea(code);
+      }
+    } else if (code === 'Backslash') {
+      if (data.lang === 'ice') {
+        if (data.isRightAlt) {
+          if (data.isAltBackslash) {
+            printCharToTextarea(code);
+            toggleIceMods(code);
+            printCharToTextarea(code);
+            resetIceMods();
+          } else if (data.isBackquote) {
+            printCharToTextarea('Backquote');
+            printCharToTextarea(code);
+            resetIceMods();
+          } else if (data.isShiftBackquote) {
+            shiftOn('ShiftLeft');
+            printCharToTextarea('Backquote');
+            shiftOff('ShiftLeft');
+            printCharToTextarea(code);
+            resetIceMods();
+          } else if (data.isQuote) {
+            printCharToTextarea('Quote');
+            printCharToTextarea(code);
+            resetIceMods();
+          } else if (data.isAltQuote) {
+            printCharToTextarea('Quote');
+            printCharToTextarea(code);
+            resetIceMods();
+          } else {
+            toggleIceMods(code);
+          }
+        } else if (data.isAltBackslash) {
+          printCharToTextarea(code);
+          resetIceMods();
+          printCharToTextarea(code);
+        } else {
+          printCharToTextarea(code);
+        }
+      } else {
+        printCharToTextarea(code);
+      }
+    } else if (code === 'Quote') {
+      if (data.lang === 'ice') {
+        if (data.isBackquote) {
+          printCharToTextarea('Backquote');
+          printCharToTextarea(code);
+          resetIceMods();
+        } else if (data.isShiftBackquote) {
+          shiftOn('ShiftLeft');
+          printCharToTextarea('Backquote');
+          shiftOff('ShiftLeft');
+          printCharToTextarea(code);
+          resetIceMods();
+        } else if (data.isAltBackslash) {
+          if (data.isRightAlt) {
+            printCharToTextarea('Backslash');
+            printCharToTextarea(code);
+          } else {
+            rightAltOn('AltRight');
+            printCharToTextarea('Backslash');
+            rightAltOff('AltRight');
+            printCharToTextarea(code);
+          }
+          resetIceMods();
+        } else if (data.isQuote) {
+          if (data.isRightAlt) {
+            printCharToTextarea(code);
+            toggleIceMods(code);
+            printCharToTextarea(code);
+            resetIceMods();
+          } else {
+            printCharToTextarea(code);
+            printCharToTextarea(code);
+            resetIceMods();
+          }
+        } else if (data.isAltQuote) {
+          if (data.isRightAlt) {
+            printCharToTextarea(code);
+            printCharToTextarea(code);
+          } else {
+            printCharToTextarea(code);
+            toggleIceMods(code);
+            printCharToTextarea(code);
+          }
+          resetIceMods();
+        } else {
+          toggleIceMods(code);
+        }
+      } else {
+        printCharToTextarea(code);
+      }
+    } else if (code === 'Space') {
+      if (data.lang === 'ice') {
+        if (data.isAltBackslash) {
+          if (data.isRightAlt) {
+            printCharToTextarea('Backslash');
+            // printCharToTextarea('Backslash');
+          } else {
+            rightAltOn('AltRight');
+            printCharToTextarea('Backslash');
+            rightAltOff('AltRight');
+          }
+        } else if (data.isBackquote) {
+          printCharToTextarea('Backquote');
+        } else if (data.isShiftBackquote) {
+          shiftOn('ShiftLeft');
+          printCharToTextarea('Backquote');
+          shiftOff('ShiftLeft');
+        } else if (data.isQuote) {
+          printCharToTextarea('Quote');
+        } else if (data.isAltQuote) {
+          rightAltOn('AltRight');
+          printCharToTextarea('Quote');
+          rightAltOff('AltRight');
+        } else {
+          printCharToTextarea(code);
+        }
+        resetIceMods();
+      } else {
+        printCharToTextarea(code);
+      }
     } else if (code === 'Enter') {
       textareaInput('\n', textarea.selectionStart);
       textareaUpdate();
-      textarea.selectionStart = currentSelectionStart + 1;
-      textarea.selectionEnd = currentSelectionStart + 1;
+      data.currentSelection = currentSelectionStart + 1;
+      textarea.selectionStart = data.currentSelection;
+      textarea.selectionEnd = data.currentSelection;
     } else if (code === 'Delete') {
       deleteCharInTextarea(false);
     } else if (code === 'Backspace') {
       deleteCharInTextarea(true);
     } else {
-      const keyArr = data.lang === 'ice' ? data.icelandic : data.english;
-      let index = -1;
-      keyArr.forEach((el, i) => {
-        if (el.code === code) index = i;
-      });
-
-      const char = updateChar(code, index);
-
-      textareaInput(char, data.currentSelection);
-      textareaUpdate();
-      data.currentSelection = currentSelectionStart + 1;
-      textarea.selectionStart = data.currentSelection;
-      textarea.selectionEnd = data.currentSelection;
+      printCharToTextarea(code);
     }
   }
 };
 
-const keyCkickHandler = () => {
+const keyClickHandler = () => {
   const doc = document.body;
-
   doc.addEventListener('keydown', (e) => {
     e.preventDefault();
     toggleCaps(e);
     shiftOn(e);
-    toggleIceMods(e.code);
+    rightAltOn(e.code);
     highlightKey(e);
-    updateKeyboard(e.code);
     textareaInputHandler(e.code);
-    textareaUpdate();
+    updateKeyboard(e.code);
   });
 
   doc.addEventListener('keyup', (e) => {
     e.preventDefault();
     shiftOff(e);
+    rightAltOff(e.code);
     updateKeyboard(e.code);
     turnOffKey(e);
   });
@@ -1157,10 +1342,39 @@ const mouseClickHandler = () => {
   document.body.addEventListener('click', (e) => {
     if (e.target.closest('.key')?.dataset.code) {
       const { code } = e.target.closest('.key').dataset;
+      e.code = code;
 
+      toggleCaps(e);
       textareaInputHandler(code);
+      updateKeyboard(code);
     } else {
       data.currentSelection = textarea.selectionStart;
+    }
+    textarea.focus();
+  });
+
+  document.body.addEventListener('mousedown', (e) => {
+    const parent = e.target.closest('.key');
+    if (parent?.dataset?.code) {
+      const { code } = parent.dataset;
+
+      e.code = code;
+      shiftOn(e);
+      rightAltOn(e.code);
+      updateKeyboard(e.code);
+    }
+    textarea.focus();
+  });
+
+  document.body.addEventListener('mouseup', (e) => {
+    const parent = e.target.closest('.key');
+    if (parent?.dataset?.code) {
+      const { code } = parent.dataset;
+
+      e.code = code;
+      shiftOff(e);
+      rightAltOff(e.code);
+      updateKeyboard(e.code);
     }
     textarea.focus();
   });
@@ -1174,7 +1388,7 @@ const initKeyboard = () => {
   updateKeyboard();
   textareaReset();
   textareaUpdate();
-  keyCkickHandler();
+  keyClickHandler();
   mouseClickHandler();
 };
 
