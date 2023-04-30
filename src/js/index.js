@@ -1312,6 +1312,7 @@ const textareaInputHandler = (code) => {
       deleteCharInTextarea(true);
     } else {
       printCharToTextarea(code);
+      resetIceMods();
     }
   }
 };
