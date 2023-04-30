@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
 :root {
   --primary-bg-gradient: linear-gradient(148deg,
       #8df7d5 0%,
@@ -57,14 +58,18 @@ body {
 }
 
 .main {
-  padding: 18px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: var(--keyboard-out-shadow);
   width: fit-content;
   margin: 0 auto;
   display: grid;
   gap: 8px;
+}
+
+.block {
+  padding: 18px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--keyboard-out-shadow);
+
 }
 
 .textboard {
@@ -87,6 +92,7 @@ body {
   overflow: hidden;
   width: inherit;
   margin: 0 auto;
+  resize: vertical;
 }
 
 .textboard__text-area::-webkit-resizer {
@@ -299,4 +305,16 @@ body {
 .key[data-code="ControlRight"] {
   --key-width: 69px;
   --primary-bg-gradient: var(--secondary-bg-gradient)
+}
+
+.info {
+  font-family: 'Balsamiq Sans';
+  color: #7b8fbd;
+  font-weight: normal;
+  text-align: center;
+}
+
+.info span {
+  font-weight: bold;
+  line-height: 150%;
 }

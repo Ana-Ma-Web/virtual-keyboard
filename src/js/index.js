@@ -721,14 +721,26 @@ class Key {
 const renderWrapper = () => {
   const wrapper = `<div class="wrapper">
     <div class="main">
-      <div class="textboard">
-        <textarea 
-        class="textboard__text-area" 
-        name="text" 
-        cols="72" 
-        rows="4">Þat mælti mín móðir: at mér skyldi kaupa</textarea>
+      <div class="text-wrapper block">
+        <div class="textboard">
+          <textarea 
+          class="textboard__text-area" 
+          name="text" 
+          cols="72" 
+          rows="4">Þat mælti mín móðir: at mér skyldi kaupa</textarea>
+        </div>  
       </div>  
-      <div class="keyboard" data-lang="${data.lang}"></div>
+      <div class="keyboard block" data-lang="${data.lang}"></div>
+      <div class="info block">
+        Клавиатура сделана на Windows. Сменить язык: Shift + Ctrl <br>
+        <span>Внимание!</span><br>
+        Из-за большого количества вариантов букв исландская раскладка работает 
+        немного необычно<br> 
+        Ключевые кнопки <span> ° </span>, <span> ´ </span>, <span> ^ </span> 
+        и некоторые их варианты c Shift и AltRight добавляют модификации<br>
+        С их помощью можно написать разные веселые буквы, 
+        например <span> å ü ò ý ê </span>
+      </div>
     </div>  
   </div>`;
   document.body.innerHTML = wrapper;
