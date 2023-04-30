@@ -8,7 +8,7 @@ const data = {
   isQuote: false,
   isAltQuote: false,
   isAltBackslash: false,
-  lang: 'ice',
+  lang: localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en',
   textareaValue: '',
   currentSelection: 0,
   icelandic: [
@@ -996,9 +996,11 @@ const toggleLanguage = () => {
   if (data.lang === 'ice') {
     data.lang = 'en';
     document.querySelector('.keyboard').dataset.lang = 'en';
+    localStorage.setItem('lang', 'en');
   } else if (data.lang === 'en') {
     data.lang = 'ice';
     document.querySelector('.keyboard').dataset.lang = 'ice';
+    localStorage.setItem('lang', 'ice');
   }
   data.isShiftBackquote = false;
   data.isAltBackslash = false;
