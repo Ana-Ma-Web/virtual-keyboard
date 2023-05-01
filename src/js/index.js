@@ -1289,7 +1289,6 @@ const textareaInputHandler = (code) => {
         if (data.isAltBackslash) {
           if (data.isRightAlt) {
             printCharToTextarea('Backslash');
-            // printCharToTextarea('Backslash');
           } else {
             rightAltOn('AltRight');
             printCharToTextarea('Backslash');
