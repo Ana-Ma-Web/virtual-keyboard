@@ -1077,6 +1077,95 @@ const turnOffKey = (e) => {
   }
 };
 
+const findEnterPositionsInTextarea = () => {
+  let prevRowLength = 0;
+  let nextRowLength = 0;
+  let prevPrevPosition = 0;
+  let prevPosition = 0;
+  let nextPosition = 0;
+  let nextNextPosition = 0;
+  const currentPosition = data.currentSelection;
+  const string = data.textareaValue;
+
+  let pos = 0;
+  const trueForEslint = true;
+  while (trueForEslint) {
+    const foundPos = string.indexOf('\n', pos);
+    if (foundPos === -1 || nextPosition) break;
+    if (foundPos < currentPosition) {
+      prevPrevPosition = prevPosition > 0 ? prevPosition : 0;
+      prevPosition = foundPos;
+      prevRowLength = prevPosition - prevPrevPosition - 1;
+      if (!prevPrevPosition) {
+        prevRowLength += 1;
+      }
+    } else nextPosition = foundPos;
+
+    pos = foundPos + 1;
+  }
+  if (string.indexOf('\n', pos) > 0) {
+    nextNextPosition = string.indexOf('\n', pos);
+  }
+  if ((nextNextPosition - nextPosition) > 0) {
+    nextRowLength = nextNextPosition - nextPosition - 1;
+  }
+  return {
+    prevPosition,
+    nextPosition,
+    prevRowLength,
+    nextRowLength,
+    nextNextPosition,
+  };
+};
+
+const moveTextCursor = (direction) => {
+  const textarea = document.querySelector('.textboard__text-area');
+  const currentPosition = data.currentSelection;
+  const {
+    prevPosition,
+    nextPosition,
+    prevRowLength,
+    nextRowLength,
+    nextNextPosition,
+  } = findEnterPositionsInTextarea();
+  switch (direction) {
+    case 'ArrowUp':
+      if ((currentPosition - 1 - prevPosition) > prevRowLength) {
+        if (prevPosition) data.currentSelection = prevPosition;
+      } else {
+        data.currentSelection = currentPosition - prevRowLength - 1;
+      }
+      break;
+    case 'ArrowDown':
+      if (nextRowLength < (currentPosition - prevPosition)) {
+        if (nextNextPosition > 0) {
+          data.currentSelection = nextNextPosition;
+        } else if (nextPosition > 0) {
+          const nextSelection = currentPosition - prevPosition + nextPosition;
+          if (nextSelection > textarea.value.length) {
+            data.currentSelection = textarea.value.length;
+          } else {
+            data.currentSelection = currentPosition - prevPosition + nextPosition;
+          }
+        }
+      } else {
+        data.currentSelection = currentPosition - prevPosition + nextPosition;
+        if (!prevPosition) data.currentSelection += 1;
+      }
+      break;
+    case 'ArrowLeft':
+      data.currentSelection -= 1;
+      break;
+    case 'ArrowRight':
+      data.currentSelection += 1;
+      break;
+    default:
+      break;
+  }
+  textarea.selectionStart = data.currentSelection;
+  textarea.selectionEnd = data.currentSelection;
+};
+
 const textareaReset = () => {
   const textarea = document.querySelector('.textboard__text-area');
   textarea.autofocus = true;
@@ -1323,6 +1412,12 @@ const textareaInputHandler = (code) => {
       deleteCharInTextarea(false);
     } else if (code === 'Backspace') {
       deleteCharInTextarea(true);
+    } else if (code === 'ArrowUp'
+      || code === 'ArrowLeft'
+      || code === 'ArrowDown'
+      || code === 'ArrowRight'
+    ) {
+      moveTextCursor(code);
     } else {
       printCharToTextarea(code);
       resetIceMods();
@@ -1406,6 +1501,6 @@ const initKeyboard = () => {
   mouseClickHandler();
 };
 
-window.onload = function () {
+window.onload = function start() {
   initKeyboard();
 };
