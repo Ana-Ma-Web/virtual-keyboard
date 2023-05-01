@@ -574,7 +574,7 @@ const data = {
     {
       code: 'Quote',
       key: "'",
-      rightAlt: '"',
+      shiftKey: '"',
     },
     {
       code: 'Enter',
@@ -800,42 +800,42 @@ const updateChar = (code, index) => {
   };
 
   const changeCharToShift = () => {
+    newChar = key.shiftKey ? key.shiftKey : newChar;
     if (!data.isCaps) {
-      newChar = key.shiftKey ? key.shiftKey : newChar;
       newChar = key.capsKey ? key.capsKey : newChar;
-      if (data.isBackquote) {
-        if (key.code === 'Backquote') {
-          newChar = key.key;
-        } else {
-          newChar = key.backquoteShift ? key.backquoteShift : newChar;
-        }
+    }
+    if (data.isBackquote) {
+      if (key.code === 'Backquote') {
+        newChar = key.key;
+      } else {
+        newChar = key.backquoteShift ? key.backquoteShift : newChar;
       }
-      if (data.isShiftBackquote) {
-        newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
-        if (key.code === 'Backquote') {
-          newChar = key.shiftKey;
-        }
+    }
+    if (data.isShiftBackquote) {
+      newChar = key.shiftBackquoteShift ? key.shiftBackquoteShift : newChar;
+      if (key.code === 'Backquote') {
+        newChar = key.shiftKey;
       }
-      if (data.isQuote) {
-        if (key.code === 'Quote') {
-          newChar = key.key;
-        } else {
-          newChar = key.quoteShift ? key.quoteShift : newChar;
-        }
+    }
+    if (data.isQuote) {
+      if (key.code === 'Quote') {
+        newChar = key.key;
+      } else {
+        newChar = key.quoteShift ? key.quoteShift : newChar;
       }
-      if (data.isAltQuote) {
-        if (key.code === 'Quote') {
-          newChar = key.rightAlt;
-        } else {
-          newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
-        }
+    }
+    if (data.isAltQuote) {
+      if (key.code === 'Quote') {
+        newChar = key.rightAlt;
+      } else {
+        newChar = key.altQuoteShift ? key.altQuoteShift : newChar;
       }
-      if (data.isAltBackslash) {
-        if (key.code === 'Backslash') {
-          newChar = key.rightAlt;
-        } else {
-          newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
-        }
+    }
+    if (data.isAltBackslash) {
+      if (key.code === 'Backslash') {
+        newChar = key.rightAlt;
+      } else {
+        newChar = key.altBackslashShift ? key.altBackslashShift : newChar;
       }
     }
   };
